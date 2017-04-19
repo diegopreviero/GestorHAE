@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        <title>Manutenção de Usuários</title>
+        <meta name="description"
+              content="Tela para cadastro de usuários"/>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        <h:form id="frmCadUsuario" prependId="false">
+            <p:growl id="msg" showDetail="true" globalOnly="true"/>
+            <p:tabView id="tabs" activeIndex="#{usuarioBean.idTab}">
+                <p:ajax event="tabChange"
+                        listener="#{usuarioBean.onTabChange}"/>
+                <p:tab title="Lista de Usuários" id="lista">
+                    <p:dataTable var="user"
+                                 value="#{usuarioBean.listaTodosUsuarios}">
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{user.nome}"/>
+                        </p:column>
+                        <p:column headerText="E-mail">
+                            <h:outputText value="#{user.email}"/>
+                        </p:column>
+                        <p:column headerText="Ativo">
+                            <h:outputText value="#{user.statusAtivo}"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="width:10%">
+                            <p:commandButton icon="ui-icon-pencil"
+                                             update=":tabs"
+                                     actionListener="#{usuarioBean.alterarUsuario(user)}"/>
+                        </p:column>
+                        <p:column headerText="Excluir" style="width:10%">
+                            <p:commandButton icon="ui-icon-trash"
+                                             update="@form"
+                                     actionListener="#{usuarioBean.excluirUsuario(user)}">
+                                <p:confirm header="Excluir Usuário"
+                                           message="Deseja excluiri o usuario #{user.nome}?"
+                                           icon="ui-icon-alert"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Cadastro de Usuários" id="cadastro">
+                    <h:inputHidden value="#{usuarioBean.usuario.id}" id="id"/>
+                    <h:panelGrid columns="3" cellpadding="10">
+                        <p:outputLabel for="nome" id="lblNome" value="Nome:"/>
+                        <p:inputText id="nome" 
+                                     value="#{usuarioBean.usuario.nome}"/>
+                        <p:message for="nome"/>
+                        <p:outputLabel for="email" id="lblEmail" value="E-mail:"/>
+                        <p:inputText id="email" 
+                                     value="#{usuarioBean.usuario.email}"/>
+                        <p:message for="email"/>
+                        <p:outputLabel for="senha1" id="lblSenha1" value="Senha:"/>
+                        <p:password id="senha1" match="senha2" label="Senha"
+                                     value="#{usuarioBean.senha1}"
+                                     feedback="true" 
+                                     promptLabel="Indicador de segurança" 
+                                     weakLabel="Senha Fraca"
+                                     goodLabel="Senha Regular" 
+                                     strongLabel="Senha Forte"/>
+                        <p:message for="senha1"/>
+                        <p:outputLabel for="senha2" id="lblSenha2" 
+                                       value="Confirmar senha:"/>
+                        <p:password id="senha2" label="Confirmar senha"
+                                     value="#{usuarioBean.senha2}"/>
+                        <p:message for="senha2"/>
+                        <p:outputLabel for="ativo" id="lblAtivo" 
+                                       value="Usuário Ativo:"/>
+                        <p:selectBooleanButton id="ativo" 
+                                               value="#{usuarioBean.usuario.statusAtivo}"
+                                               onLabel="SIM" offLabel="NÃO" 
+                                               onIcon="ui-icon-check" 
+                                               offIcon="ui-icon-close"/>
+                        <p:message for="ativo"/>
+                        <p:outputLabel for="perfil" id="lblPerfil" 
+                                       value="Selecione o(s) perfil(s):"/>
+                        <p:selectManyCheckbox id="perfil" 
+                                              value="#{usuarioBean.listaPerfilUsuario}"
+                                              layout="pageDirection"
+                                              converter="tipoUsuarioConverter">
+                            <f:selectItems var="perfil" 
+                                           value="#{usuarioBean.listaTodosPerfil}"
+                                           itemLabel="#{perfil.papel}"
+                                           itemValue="#{perfil}"/>
+                        </p:selectManyCheckbox>
+                        <p:commandButton value="Perfil" icon="ui-icon-plus"
+                                         type="button" 
+                                         onclick="PF('dlgPerfil').show();"
+                                  actionListener="#{usuarioBean.prepararTipoUsuario}"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                            actionListener="#{usuarioBean.salvarUsuario}"
+                            update="@form"/>
+                    <p:commandButton value="Limpar" icon="ui-icon-cancel"
+                            actionListener="#{usuarioBean.limparTela}"
+                            update="@form" />
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade"
+                             hideEffect="fade">
+                <p:commandButton value="Sim" type="button"
+                                 styleClass="ui-confirmdialog-yes"
+                                 icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button"
+                                 styleClass="ui-confirmdialog-no"
+                                 icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+        <p:dialog header="Cadastro de novo perfil" modal="true"
+                  widgetVar="dlgPerfil" showEffect="fade"
+                  hideEffect="explode">
+            <h:form id="frmDlgPerfil" prependId="false">
+                <h:inputHidden id="id"
+                               value="#{usuarioBean.tpUsuario.id}"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel id="lblPapel" for="papel"
+                                   value="Perfil:"/>
+                    <p:inputText id="papel" 
+                                 value="#{usuarioBean.tpUsuario.papel}"/>
+                </h:panelGrid>
+                <p:commandButton icon="ui-icon-disk" value="Salvar"
+                       actionListener="#{usuarioBean.salvarTipoUsuario}"
+                       oncomplete="PF('dlgPerfil').hide();"
+                       update=":frmCadUsuario,:frmDlgPerfil"/>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
