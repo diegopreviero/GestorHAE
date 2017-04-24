@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="./WEB-INF/templates/template.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template.xhtml">
+
+            <ui:define name="titulo">
+                <title>Manutenção de Cursos</title>
+                <meta name="description" content="Tela para cadastro de cursos"/>
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <h:form id="frmCadCurso" prependId="false">
+                    <p:growl id="msg" showDetail="true" globalOnly="true"/>
+                    <p:tabView id="tabs" activeIndex="#{cursoBean.idTab}">
+                        <p:ajax event="tabChange"
+                                listener="#{cursoBean.onTabChange}"/>
+                        <p:tab title="Lista de Cursos" id="lista">
+                            <p:dataTable var="curso"
+                                         value="#{cursoBean.listaCursos}">
+                                <p:column headerText="Nome">
+                                    <h:outputText value="#{curso.nome}"/>
+                                </p:column>
+                                <p:column headerText="Ativo">
+                                    <h:outputText value="#{curso.statusAtivo}"/>
+                                </p:column>
+                                <p:column headerText="Editar" style="width:10%">
+                                    <p:commandButton icon="ui-icon-pencil"
+                                                     update=":tabs"
+                                                     actionListener="#{cursoBean.alterarUsuario(curso)}"/>
+                                </p:column>
+                                <p:column headerText="Excluir" style="width:10%">
+                                    <p:commandButton icon="ui-icon-trash"
+                                                     update="@form"
+                                                     actionListener="#{cursoBean.excluirUsuario(curso)}">
+                                        <p:confirm header="Excluir Curso"
+                                                   message="Deseja excluir o curso #{curso.nome}?"
+                                                   icon="ui-icon-alert"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        
+                    </p:tabView>
+                    <p:confirmDialog global="true" showEffect="fade"
+                                     hideEffect="fade">
+                        <p:commandButton value="Sim" type="button"
+                                         styleClass="ui-confirmdialog-yes"
+                                         icon="ui-icon-check"/>
+                        <p:commandButton value="Não" type="button"
+                                         styleClass="ui-confirmdialog-no"
+                                         icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
