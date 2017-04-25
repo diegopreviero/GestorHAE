@@ -5,6 +5,7 @@ import br.edu.pazin.dao.UsuarioDAO;
 import br.edu.pazin.modelo.TipoUsuario;
 import br.edu.pazin.modelo.Usuario;
 import br.edu.pazin.modelo.UsuarioPerfil;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -20,7 +21,7 @@ import org.primefaces.event.TabChangeEvent;
  */
 @ManagedBean
 @ViewScoped
-public class UsuarioBean {
+public class UsuarioBean implements Serializable{
 
     private Usuario usuario;
     private TipoUsuario tpUsuario;

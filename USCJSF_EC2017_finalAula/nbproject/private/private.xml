@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/dao/UsuarioDAO.java</file>
+            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwIndex.xhtml</file>
+            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/WEB-INF/templates/menu.xhtml</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwUsuario.xhtml</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/controle/CursoBean.java</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/controle/UsuarioBean.java</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/dao/CursoDAO.java</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwCurso.xhtml</file>
-            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/modelo/Curso.java</file>
         </group>
     </open-files>
 </project-private>

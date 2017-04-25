@@ -23,8 +23,7 @@
                         <p:ajax event="tabChange"
                                 listener="#{cursoBean.onTabChange}"/>
                         <p:tab title="Lista de Cursos" id="lista">
-                            <p:dataTable var="curso"
-                                         value="#{cursoBean.listaCursos}">
+                            <p:dataTable var="curso" value="#{cursoBean.listaCursos}">
                                 <p:column headerText="Nome">
                                     <h:outputText value="#{curso.nome}"/>
                                 </p:column>
@@ -34,12 +33,12 @@
                                 <p:column headerText="Editar" style="width:10%">
                                     <p:commandButton icon="ui-icon-pencil"
                                                      update=":tabs"
-                                                     actionListener="#{cursoBean.alterarUsuario(curso)}"/>
+                                                     actionListener="#{cursoBean.alterarCurso(curso)}"/>
                                 </p:column>
                                 <p:column headerText="Excluir" style="width:10%">
                                     <p:commandButton icon="ui-icon-trash"
                                                      update="@form"
-                                                     actionListener="#{cursoBean.excluirUsuario(curso)}">
+                                                     actionListener="#{cursoBean.excluirCurso(curso)}">
                                         <p:confirm header="Excluir Curso"
                                                    message="Deseja excluir o curso #{curso.nome}?"
                                                    icon="ui-icon-alert"/>
@@ -47,7 +46,29 @@
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
-                        
+                        <p:tab title="Cadastro de Cursos" id="cadastro">
+                            <h:inputHidden value="#{cursoBean.curso.id}" id="id"/>
+                            <h:panelGrid columns="3" cellpadding="10">
+                                <p:outputLabel for="nome" id="lblNome" value="Nome:"/>
+                                <p:inputText id="nome" 
+                                             value="#{cursoBean.curso.nome}"/>
+                                <p:message for="nome"/>
+                                <p:outputLabel for="ativo" id="lblAtivo" 
+                                               value="Curso Ativo:"/>
+                                <p:selectBooleanButton id="ativo" 
+                                                       value="#{cursoBean.curso.statusAtivo}"
+                                                       onLabel="SIM" offLabel="NÃO" 
+                                                       onIcon="ui-icon-check" 
+                                                       offIcon="ui-icon-close"/>
+                                <p:message for="ativo"/>                                
+                            </h:panelGrid>
+                            <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                             actionListener="#{cursoBean.salvarCurso()}"
+                                             update="@form"/>
+                            <p:commandButton value="Limpar" icon="ui-icon-cancel"
+                                             actionListener="#{cursoBean.limparTela}"
+                                             update="@form" />
+                        </p:tab>
                     </p:tabView>
                     <p:confirmDialog global="true" showEffect="fade"
                                      hideEffect="fade">

@@ -10,15 +10,17 @@
                     <p:menuitem value="Usuário" url="vwUsuario.xhtml" />
                     <p:menuitem value="Curso" url="vwCurso.xhtml" />
                 </p:submenu>
-                <p:menuitem value="Open" url="#" />
+                <p:menuitem value="Open" url="#" disabled="true" />
                 <p:separator />
-                <p:menuitem value="Quit" url="#" />
+                <p:menuitem value="Sair" url="vwIndex.xhtml" />
             </p:submenu>
 
-            <p:submenu label="Edit" icon="ui-icon-pencil">
-                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:submenu label="Edit" icon="ui-icon-pencil" >
+                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w"  />
                 <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
             </p:submenu>
+            
+
         </p:menubar>
     </h:form>
 </ui:composition>
