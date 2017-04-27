@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -28,10 +27,20 @@ public class Aluno implements Serializable{
     @Column(length = 60, nullable = false)
     private String nome;
     private boolean statusAtivo;
+    private boolean cursandoTG;
     @ManyToOne(cascade=CascadeType.ALL)
     //@JoinColumn(name = "id")
     private Curso curso;
 
+    public boolean isCursandoTG() {
+        return cursandoTG;
+    }
+
+    public void setCursandoTG(boolean cursandoTG) {
+        this.cursandoTG = cursandoTG;
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -66,11 +75,12 @@ public class Aluno implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + (this.statusAtivo ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.curso);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + (this.statusAtivo ? 1 : 0);
+        hash = 47 * hash + (this.cursandoTG ? 1 : 0);
+        hash = 47 * hash + Objects.hashCode(this.curso);
         return hash;
     }
 
@@ -89,6 +99,9 @@ public class Aluno implements Serializable{
         if (this.statusAtivo != other.statusAtivo) {
             return false;
         }
+        if (this.cursandoTG != other.cursandoTG) {
+            return false;
+        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
@@ -100,6 +113,6 @@ public class Aluno implements Serializable{
         }
         return true;
     }
-    
+
     
 }

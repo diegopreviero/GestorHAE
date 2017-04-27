@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        <title>Manutenção de Alunos</title>
+        <meta name="description" content="Tela para cadastro de alunos"/>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        <h:form id="frmCadAluno" prependId="false">
+            <p:growl id="msg" showDetail="true" globalOnly="true"/>
+            <p:tabView id="tabs" activeIndex="#{alunoBean.idTab}">
+                <p:ajax event="tabChange"
+                        listener="#{alunoBean.onTabChange}"/>
+                <p:tab title="Lista de Alunos" id="lista">
+                    <p:dataTable var="aluno"
+                                 value="#{alunoBean.listaTodosAlunos}">
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{aluno.nome}"/>
+                        </p:column>
+                        <p:column headerText="Ativo">
+                            <h:outputText value="#{aluno.statusAtivo}"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="width:10%">
+                            <p:commandButton icon="ui-icon-pencil"
+                                             update=":tabs"
+                                     actionListener="#{alunoBean.alterarAluno(aluno)}"/>
+                        </p:column>
+                        <p:column headerText="Excluir" style="width:10%">
+                            <p:commandButton icon="ui-icon-trash"
+                                             update="@form"
+                                     actionListener="#{alunoBean.excluirAluno(aluno)}">
+                                <p:confirm header="Excluir Aluno"
+                                           message="Deseja excluiri o aluno #{aluno.nome}?"
+                                           icon="ui-icon-alert"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <!--<p:tab title="Cadastro de Alunos" id="cadastro">
+                    <h:inputHidden value="#{alunoBean.aluno.id}" id="id"/>
+                    <h:panelGrid columns="3" cellpadding="10">
+                        <p:outputLabel for="nome" id="lblNome" value="Nome:"/>
+                        <p:inputText id="nome" 
+                                     value="#{alunoBean.aluno.nome}"/>
+                        <p:message for="nome"/>
+                        
+                        <p:outputLabel for="ativo" id="lblAtivo" 
+                                       value="Aluno Ativo:"/>
+                        <p:selectBooleanButton id="ativo" 
+                                               value="#{alunoBean.aluno.statusAtivo}"
+                                               onLabel="SIM" offLabel="NÃO" 
+                                               onIcon="ui-icon-check" 
+                                               offIcon="ui-icon-close"/>
+                        <p:message for="ativo"/>
+                        
+                        <p:outputLabel for="cursandoTG" id="lblCursandoTG" 
+                                       value="Cursando TG:"/>
+                        <p:selectBooleanButton id="cursandoTG" 
+                                               value="#{alunoBean.aluno.cursandoTG}"
+                                               onLabel="SIM" offLabel="NÃO" 
+                                               onIcon="ui-icon-check" 
+                                               offIcon="ui-icon-close"/>
+                        <p:message for="cursandoTG"/>
+                        
+                        <p:outputLabel for="perfil" id="lblPerfil" 
+                                       value="Selecione o(s) perfil(s):"/>
+                        <p:selectManyCheckbox id="perfil" 
+                                              value="#{alunoBean.listaPerfilAluno}"
+                                              layout="pageDirection"
+                                              converter="AlunoCursoConverter">
+                            <f:selectItems var="perfil" 
+                                           value="#{alunoBean.listaTodosPerfil}"
+                                           itemLabel="#{perfil.papel}"
+                                           itemValue="#{perfil}"/>
+                        </p:selectManyCheckbox>
+                        <p:commandButton value="Perfil" icon="ui-icon-plus"
+                                         type="button" 
+                                         onclick="PF('dlgPerfil').show();"
+                                  actionListener="#{alunoBean.prepararTipoAluno}"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                            actionListener="#{alunoBean.salvarAluno}"
+                            update="@form"/>
+                    <p:commandButton value="Limpar" icon="ui-icon-cancel"
+                            actionListener="#{alunoBean.limparTela}"
+                            update="@form" />
+                </p:tab>-->
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade"
+                             hideEffect="fade">
+                <p:commandButton value="Sim" type="button"
+                                 styleClass="ui-confirmdialog-yes"
+                                 icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button"
+                                 styleClass="ui-confirmdialog-no"
+                                 icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+       <!-- <p:dialog header="Cadastro de novo perfil" modal="true"
+                  widgetVar="dlgPerfil" showEffect="fade"
+                  hideEffect="explode">
+            <h:form id="frmDlgPerfil" prependId="false">
+                <h:inputHidden id="id"
+                               value="#{alunoBean.tpAluno.id}"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel id="lblPapel" for="papel"
+                                   value="Perfil:"/>
+                    <p:inputText id="papel" 
+                                 value="#{alunoBean.tpAluno.papel}"/>
+                </h:panelGrid>
+                <p:commandButton icon="ui-icon-disk" value="Salvar"
+                       actionListener="#{alunoBean.salvarTipoAluno}"
+                       oncomplete="PF('dlgPerfil').hide();"
+                       update=":frmCadAluno,:frmDlgPerfil"/>
+            </h:form>
+        </p:dialog>-->
+    </ui:define>
+
+</ui:composition>
