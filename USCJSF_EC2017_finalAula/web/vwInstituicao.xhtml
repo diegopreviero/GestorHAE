@@ -15,14 +15,14 @@
                 <title>Manutenção de Intituicoes</title>
                 <meta name="description" content="Tela para cadastro de instituicaos"/>
             </ui:define>
-<!--
+
             <ui:define name="conteudo">
                 <h:form id="frmCadInstituicao" prependId="false">
                     <p:growl id="msg" showDetail="true" globalOnly="true"/>
                     <p:tabView id="tabs" activeIndex="#{instituicaoBean.idTab}">
                         <p:ajax event="tabChange"
                                 listener="#{instituicaoBean.onTabChange}"/>
-                        <p:tab title="Lista de Intituicoes" id="lista">
+                        <p:tab title="Lista de Intituições" id="lista">
                             <p:dataTable var="instituicao" value="#{instituicaoBean.listaIntituicoes}">
                                 <p:column headerText="Nome">
                                     <h:outputText value="#{instituicao.nome}"/>
@@ -46,16 +46,18 @@
                                 </p:column>
                             </p:dataTable>
                         </p:tab>
-                        <p:tab title="Cadastro de Intituicoes" id="cadastro">
+                        <p:tab title="Cadastro de Intituição" id="cadastro">
                             <h:inputHidden value="#{instituicaoBean.instituicao.id}" id="id"/>
                             <h:panelGrid columns="3" cellpadding="10">
                                 <p:outputLabel for="nome" id="lblNome" value="Nome:"/>
                                 <p:inputText id="nome" 
                                              value="#{instituicaoBean.instituicao.nome}"/>
-                                <p:message for="nome"/>                                
+                                <p:message for="nome"/> 
+                                <p:outputLabel for="endereco" id="lblEndereco" value="Endereço:"/>
                                 <p:inputText id="endereco" 
                                              value="#{instituicaoBean.instituicao.endereco}"/>
                                 <p:message for="endereco"/>
+                                <p:outputLabel for="logo" id="lblLogo" value="Caminho Logo:"/>
                                 <p:inputText id="logo" 
                                              value="#{instituicaoBean.instituicao.logo}"/>
                                 <p:message for="logo"/>
@@ -80,7 +82,6 @@
                     </p:confirmDialog>
                 </h:form>
             </ui:define>
--->
         </ui:composition>
 
     </body>

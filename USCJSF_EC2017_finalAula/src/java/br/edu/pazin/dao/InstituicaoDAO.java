@@ -12,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
  * @author Seven
  */
 public class InstituicaoDAO extends GenericDAO<Instituicao> {
-/*
+
     public InstituicaoDAO() {
     }
 
@@ -63,5 +63,5 @@ public class InstituicaoDAO extends GenericDAO<Instituicao> {
             System.out.println("InstituicaoDAO.salvar()");
             return "Problemas ao salvar o instituição: " + ex.getMessage();
         }
-    }*/
+    }
 }

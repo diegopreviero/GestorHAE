@@ -17,7 +17,7 @@ import org.primefaces.event.TabChangeEvent;
 @ManagedBean
 @ViewScoped
 public class InstituicaoBean implements Serializable{
-/*
+
     private Instituicao instituicao;
     private List<Instituicao> listaInstituicoes;
     private FacesContext fc;
@@ -130,5 +130,5 @@ public class InstituicaoBean implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, fm);
         }
     }
-*/
+
 }

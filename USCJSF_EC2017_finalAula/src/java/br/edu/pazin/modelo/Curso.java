@@ -28,8 +28,8 @@ public class Curso implements Serializable {
     private boolean statusAtivo;
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<AlunoCurso> listaAlunos;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "id")
     private Instituicao instituicao;
 
     public Instituicao getInstituicao() {
@@ -38,7 +38,7 @@ public class Curso implements Serializable {
 
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
-    }*/
+    }
 
     public Integer getId() {
         return id;
@@ -75,7 +75,7 @@ public class Curso implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -96,7 +96,5 @@ public class Curso implements Serializable {
         }
         return true;
     }
-
-    
 
 }

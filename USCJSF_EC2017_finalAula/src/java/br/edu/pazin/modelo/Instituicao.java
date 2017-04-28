@@ -15,9 +15,9 @@ import javax.persistence.OneToMany;
  *
  * @author Seven
  */
-//@Entity
+@Entity
 public class Instituicao implements Serializable{
-    /*
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -94,5 +94,5 @@ public class Instituicao implements Serializable{
             return false;
         }
         return true;
-    }    */    
+    }        
 }
