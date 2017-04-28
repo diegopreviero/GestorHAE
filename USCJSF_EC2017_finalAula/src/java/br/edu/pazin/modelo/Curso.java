@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,6 +28,17 @@ public class Curso implements Serializable {
     private boolean statusAtivo;
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<AlunoCurso> listaAlunos;
+    /*@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private Instituicao instituicao;
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }*/
 
     public Integer getId() {
         return id;
@@ -62,7 +75,7 @@ public class Curso implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -83,4 +96,7 @@ public class Curso implements Serializable {
         }
         return true;
     }
+
+    
+
 }

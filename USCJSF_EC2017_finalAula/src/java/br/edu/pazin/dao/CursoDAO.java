@@ -61,7 +61,7 @@ public class CursoDAO extends GenericDAO<Curso> {
             return msg;
         } catch (Exception ex) {
             System.out.println("CursoDAO.salvar()");
-            return "Problemas ao salvar o usuário: " + ex.getMessage();
+            return "Problemas ao salvar o curso: " + ex.getMessage();
         }
     }
 }

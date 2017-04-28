@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="./WEB-INF/templates/template.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template.xhtml">
+
+            <ui:define name="titulo">
+                <title>Manutenção de Intituicoes</title>
+                <meta name="description" content="Tela para cadastro de instituicaos"/>
+            </ui:define>
+<!--
+            <ui:define name="conteudo">
+                <h:form id="frmCadInstituicao" prependId="false">
+                    <p:growl id="msg" showDetail="true" globalOnly="true"/>
+                    <p:tabView id="tabs" activeIndex="#{instituicaoBean.idTab}">
+                        <p:ajax event="tabChange"
+                                listener="#{instituicaoBean.onTabChange}"/>
+                        <p:tab title="Lista de Intituicoes" id="lista">
+                            <p:dataTable var="instituicao" value="#{instituicaoBean.listaIntituicoes}">
+                                <p:column headerText="Nome">
+                                    <h:outputText value="#{instituicao.nome}"/>
+                                </p:column>
+                                <p:column headerText="Endereço">
+                                    <h:outputText value="#{instituicao.endereco}"/>
+                                </p:column>
+                                <p:column headerText="Editar" style="width:10%">
+                                    <p:commandButton icon="ui-icon-pencil"
+                                                     update=":tabs"
+                                                     actionListener="#{instituicaoBean.alterarInstituicao(instituicao)}"/>
+                                </p:column>
+                                <p:column headerText="Excluir" style="width:10%">
+                                    <p:commandButton icon="ui-icon-trash"
+                                                     update="@form"
+                                                     actionListener="#{instituicaoBean.excluirInstituicao(instituicao)}">
+                                        <p:confirm header="Excluir Instituicao"
+                                                   message="Deseja excluir o instituicao #{instituicao.nome}?"
+                                                   icon="ui-icon-alert"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Cadastro de Intituicoes" id="cadastro">
+                            <h:inputHidden value="#{instituicaoBean.instituicao.id}" id="id"/>
+                            <h:panelGrid columns="3" cellpadding="10">
+                                <p:outputLabel for="nome" id="lblNome" value="Nome:"/>
+                                <p:inputText id="nome" 
+                                             value="#{instituicaoBean.instituicao.nome}"/>
+                                <p:message for="nome"/>                                
+                                <p:inputText id="endereco" 
+                                             value="#{instituicaoBean.instituicao.endereco}"/>
+                                <p:message for="endereco"/>
+                                <p:inputText id="logo" 
+                                             value="#{instituicaoBean.instituicao.logo}"/>
+                                <p:message for="logo"/>
+                                                              
+                            </h:panelGrid>
+                            <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                             actionListener="#{instituicaoBean.salvarInstituicao()}"
+                                             update="@form"/>
+                            <p:commandButton value="Limpar" icon="ui-icon-cancel"
+                                             actionListener="#{instituicaoBean.limparTela}"
+                                             update="@form" />
+                        </p:tab>
+                    </p:tabView>
+                    <p:confirmDialog global="true" showEffect="fade"
+                                     hideEffect="fade">
+                        <p:commandButton value="Sim" type="button"
+                                         styleClass="ui-confirmdialog-yes"
+                                         icon="ui-icon-check"/>
+                        <p:commandButton value="Não" type="button"
+                                         styleClass="ui-confirmdialog-no"
+                                         icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+-->
+        </ui:composition>
+
+    </body>
+</html>
