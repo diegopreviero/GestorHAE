@@ -6,40 +6,29 @@
 package br.edu.pazin.modelo;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Seven
  */
 @Entity
-public class Aluno implements Serializable {
-
+public class AlunoCurso implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(length = 60, nullable = false)
-    private String nome;
-    private boolean statusAtivo;
-    private boolean cursandoTG;
-    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
-    private List<AlunoCurso> listaCursos;
-
-    public boolean isCursandoTG() {
-        return cursandoTG;
-    }
-
-    public void setCursandoTG(boolean cursandoTG) {
-        this.cursandoTG = cursandoTG;
-    }
+    @ManyToOne
+    @JoinColumn(name = "idCurso")
+    private Curso curso;
+    @ManyToOne
+    @JoinColumn(name = "idAluno")
+    private Aluno aluno;
 
     public Integer getId() {
         return id;
@@ -49,34 +38,28 @@ public class Aluno implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
-    public boolean isStatusAtivo() {
-        return statusAtivo;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setStatusAtivo(boolean statusAtivo) {
-        this.statusAtivo = statusAtivo;
-    }
-
-    public List<AlunoCurso> getListaCursos() {
-        return listaCursos;
-    }
-
-    public void setListaCursos(List<AlunoCurso> listaCursos) {
-        this.listaCursos = listaCursos;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.curso);
+        hash = 89 * hash + Objects.hashCode(this.aluno);
         return hash;
     }
 
@@ -91,12 +74,16 @@ public class Aluno implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Aluno other = (Aluno) obj;
+        final AlunoCurso other = (AlunoCurso) obj;
         if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.curso, other.curso)) {
+            return false;
+        }
+        if (!Objects.equals(this.aluno, other.aluno)) {
             return false;
         }
         return true;
     }
-
-   
 }

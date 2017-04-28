@@ -16,10 +16,10 @@ public class CursoDAO extends GenericDAO<Curso> {
     public CursoDAO() {
     }
 
-    public Curso buscarCurso(String email) {
+    public Curso buscarCurso(String nome) {
         try {
             Criteria c = getSessao().createCriteria(Curso.class);
-            Criterion filtro = Restrictions.eq("nome", email);
+            Criterion filtro = Restrictions.eq("nome", nome);
             c.add(filtro);
             return (Curso) c.uniqueResult();
         } catch (Exception e) {

@@ -1,4 +1,3 @@
-
 package br.edu.pazin.modelo;
 
 import java.io.Serializable;
@@ -17,7 +16,8 @@ import javax.persistence.OneToMany;
  * @author Seven
  */
 @Entity
-public class Curso implements Serializable{
+public class Curso implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,7 +25,7 @@ public class Curso implements Serializable{
     private String nome;
     private boolean statusAtivo;
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
-    private List<Aluno> listaAlunos;
+    private List<AlunoCurso> listaAlunos;
 
     public Integer getId() {
         return id;
@@ -51,21 +51,18 @@ public class Curso implements Serializable{
         this.statusAtivo = statusAtivo;
     }
 
-    public List<Aluno> getListaAlunos() {
+    public List<AlunoCurso> getListaAlunos() {
         return listaAlunos;
     }
 
-    public void setListaAlunos(List<Aluno> listaAlunos) {
+    public void setListaAlunos(List<AlunoCurso> listaAlunos) {
         this.listaAlunos = listaAlunos;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + (this.statusAtivo ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.listaAlunos);
+        hash = 83 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -81,20 +78,9 @@ public class Curso implements Serializable{
             return false;
         }
         final Curso other = (Curso) obj;
-        if (this.statusAtivo != other.statusAtivo) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
         if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.listaAlunos, other.listaAlunos)) {
             return false;
         }
         return true;
     }
-    
-    
 }

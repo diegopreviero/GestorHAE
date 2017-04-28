@@ -5,8 +5,8 @@
  */
 package br.edu.pazin.converter;
 
-import br.edu.pazin.dao.TipoUsuarioDAO;
-import br.edu.pazin.modelo.TipoUsuario;
+import br.edu.pazin.dao.CursoDAO;
+import br.edu.pazin.modelo.Curso;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -16,7 +16,7 @@ import javax.faces.convert.FacesConverter;
  *
  * @author apazi
  */
-@FacesConverter("AlunoCursoConverter")
+@FacesConverter("alunoCursoConverter")
 public class AlunoCursoConverter implements Converter{
 
     @Override
@@ -24,13 +24,13 @@ public class AlunoCursoConverter implements Converter{
         if(string == null || string.isEmpty())
             return null;
         Integer id = Integer.valueOf(string);
-        TipoUsuarioDAO dao = new TipoUsuarioDAO();
-        return (TipoUsuario) dao.getPorId(id);
+        CursoDAO dao = new CursoDAO();
+        return (Curso) dao.getPorId(id);
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        TipoUsuario objeto = (TipoUsuario) o;
+        Curso objeto = (Curso) o;
         if(objeto == null || objeto.getId()==null)
             return null;
         return String.valueOf(objeto.getId());

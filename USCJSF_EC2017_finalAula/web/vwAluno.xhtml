@@ -30,12 +30,12 @@
                         <p:column headerText="Editar" style="width:10%">
                             <p:commandButton icon="ui-icon-pencil"
                                              update=":tabs"
-                                     actionListener="#{alunoBean.alterarAluno(aluno)}"/>
+                                             actionListener="#{alunoBean.alterarAluno(aluno)}"/>
                         </p:column>
                         <p:column headerText="Excluir" style="width:10%">
                             <p:commandButton icon="ui-icon-trash"
                                              update="@form"
-                                     actionListener="#{alunoBean.excluirAluno(aluno)}">
+                                             actionListener="#{alunoBean.excluirAluno(aluno)}">
                                 <p:confirm header="Excluir Aluno"
                                            message="Deseja excluiri o aluno #{aluno.nome}?"
                                            icon="ui-icon-alert"/>
@@ -43,14 +43,15 @@
                         </p:column>
                     </p:dataTable>
                 </p:tab>
-                <!--<p:tab title="Cadastro de Alunos" id="cadastro">
+
+                <p:tab title="Cadastro de Alunos" id="cadastro">
                     <h:inputHidden value="#{alunoBean.aluno.id}" id="id"/>
                     <h:panelGrid columns="3" cellpadding="10">
                         <p:outputLabel for="nome" id="lblNome" value="Nome:"/>
                         <p:inputText id="nome" 
                                      value="#{alunoBean.aluno.nome}"/>
                         <p:message for="nome"/>
-                        
+
                         <p:outputLabel for="ativo" id="lblAtivo" 
                                        value="Aluno Ativo:"/>
                         <p:selectBooleanButton id="ativo" 
@@ -59,7 +60,7 @@
                                                onIcon="ui-icon-check" 
                                                offIcon="ui-icon-close"/>
                         <p:message for="ativo"/>
-                        
+
                         <p:outputLabel for="cursandoTG" id="lblCursandoTG" 
                                        value="Cursando TG:"/>
                         <p:selectBooleanButton id="cursandoTG" 
@@ -68,30 +69,31 @@
                                                onIcon="ui-icon-check" 
                                                offIcon="ui-icon-close"/>
                         <p:message for="cursandoTG"/>
-                        
-                        <p:outputLabel for="perfil" id="lblPerfil" 
-                                       value="Selecione o(s) perfil(s):"/>
-                        <p:selectManyCheckbox id="perfil" 
-                                              value="#{alunoBean.listaPerfilAluno}"
+
+                        <p:outputLabel for="curso" id="lblCurso" 
+                                       value="Selecione o(s) curso(s):"/>
+                        <p:selectManyCheckbox id="curso" 
+                                              value="#{alunoBean.listaCursosAluno}"
                                               layout="pageDirection"
-                                              converter="AlunoCursoConverter">
-                            <f:selectItems var="perfil" 
-                                           value="#{alunoBean.listaTodosPerfil}"
-                                           itemLabel="#{perfil.papel}"
-                                           itemValue="#{perfil}"/>
+                                              converter="alunoCursoConverter">
+                            <f:selectItems var="curso" 
+                                           value="#{alunoBean.listaCursos}"
+                                           itemLabel="#{curso.nome}"
+                                           itemValue="#{curso}"/>
                         </p:selectManyCheckbox>
-                        <p:commandButton value="Perfil" icon="ui-icon-plus"
+
+                        <p:commandButton value="Curso" icon="ui-icon-plus"
                                          type="button" 
-                                         onclick="PF('dlgPerfil').show();"
-                                  actionListener="#{alunoBean.prepararTipoAluno}"/>
+                                         onclick="PF('dlgCurso').show();"
+                                         actionListener="#{alunoBean.prepararCurso()}"/>
                     </h:panelGrid>
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
-                            actionListener="#{alunoBean.salvarAluno}"
-                            update="@form"/>
+                                     actionListener="#{alunoBean.salvarAluno}"
+                                     update="@form"/>
                     <p:commandButton value="Limpar" icon="ui-icon-cancel"
-                            actionListener="#{alunoBean.limparTela}"
-                            update="@form" />
-                </p:tab>-->
+                                     actionListener="#{alunoBean.limparTela}"
+                                     update="@form" />
+                </p:tab>
             </p:tabView>
             <p:confirmDialog global="true" showEffect="fade"
                              hideEffect="fade">
@@ -103,24 +105,32 @@
                                  icon="ui-icon-close"/>
             </p:confirmDialog>
         </h:form>
-       <!-- <p:dialog header="Cadastro de novo perfil" modal="true"
-                  widgetVar="dlgPerfil" showEffect="fade"
+        <p:dialog header="Cadastro de novo curso" modal="true"
+                  widgetVar="dlgCurso" showEffect="fade"
                   hideEffect="explode">
-            <h:form id="frmDlgPerfil" prependId="false">
+            <h:form id="frmDlgCurso" prependId="false">
                 <h:inputHidden id="id"
-                               value="#{alunoBean.tpAluno.id}"/>
+                               value="#{alunoBean.curso.id}"/>
                 <h:panelGrid columns="2">
-                    <p:outputLabel id="lblPapel" for="papel"
-                                   value="Perfil:"/>
-                    <p:inputText id="papel" 
-                                 value="#{alunoBean.tpAluno.papel}"/>
+                    <p:outputLabel id="lblNome" for="nome"
+                                   value="Curso:"/>
+                    <p:inputText id="nome" 
+                                 value="#{alunoBean.curso.nome}"/>
+                    <p:outputLabel for="ativo" id="lblAtivo" 
+                                   value="Curso Ativo:"/>
+                    <p:selectBooleanButton id="ativo" 
+                                           value="#{alunoBean.curso.statusAtivo}"
+                                           onLabel="SIM" offLabel="NÃO" 
+                                           onIcon="ui-icon-check" 
+                                           offIcon="ui-icon-close"/>
+                    <p:message for="ativo"/>
                 </h:panelGrid>
                 <p:commandButton icon="ui-icon-disk" value="Salvar"
-                       actionListener="#{alunoBean.salvarTipoAluno}"
-                       oncomplete="PF('dlgPerfil').hide();"
-                       update=":frmCadAluno,:frmDlgPerfil"/>
+                                 actionListener="#{alunoBean.salvarCurso}"
+                                 oncomplete="PF('dlgCurso').hide();"
+                                 update=":frmCadAluno,:frmDlgCurso"/>
             </h:form>
-        </p:dialog>-->
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

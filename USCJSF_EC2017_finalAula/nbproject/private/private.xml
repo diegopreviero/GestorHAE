@@ -7,8 +7,11 @@
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/dao/AlunoDAO.java</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/dao/UsuarioDAO.java</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwAluno.xhtml</file>
-            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwUsuario.xhtml</file>
             <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/controle/UsuarioBean.java</file>
+            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwUsuario.xhtml</file>
+            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/dao/CursoDAO.java</file>
+            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/web/vwCurso.xhtml</file>
+            <file>file:/C:/Users/Seven/Documents/workspace/GestorHAE/USCJSF_EC2017_finalAula/src/java/br/edu/pazin/dao/GenericDAO.java</file>
         </group>
     </open-files>
 </project-private>

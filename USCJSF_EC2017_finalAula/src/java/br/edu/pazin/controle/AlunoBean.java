@@ -1,10 +1,10 @@
 package br.edu.pazin.controle;
 
-//import br.edu.pazin.dao.TipoAlunoDAO;
 import br.edu.pazin.dao.AlunoDAO;
-//import br.edu.pazin.modelo.TipoAluno;
+import br.edu.pazin.dao.CursoDAO;
 import br.edu.pazin.modelo.Aluno;
-//import br.edu.pazin.modelo.AlunoPerfil;
+import br.edu.pazin.modelo.AlunoCurso;
+import br.edu.pazin.modelo.Curso;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ import org.primefaces.event.TabChangeEvent;
  */
 @ManagedBean
 @ViewScoped
-public class AlunoBean implements Serializable{
+public class AlunoBean implements Serializable {
 
     private Aluno aluno;
-//    private TipoAluno tpAluno;
-//    private List<TipoAluno> listaTodosPerfil;
-//    private List<TipoAluno> listaPerfilAluno;
+    private Curso curso;
+    private List<Curso> listaCursos;
+    private List<Curso> listaCursosAluno;
     private List<Aluno> listaTodosAlunos;
     private FacesContext fc;
     private FacesMessage fm;
@@ -45,34 +45,33 @@ public class AlunoBean implements Serializable{
         this.aluno = aluno;
     }
 
-//    public TipoAluno getTpAluno() {
-//        return tpAluno;
-//    }
-//
-//    public void setTpAluno(TipoAluno tpAluno) {
-//        this.tpAluno = tpAluno;
-//    }
-//
-//    public List<TipoAluno> getListaTodosPerfil() {
-//        if (listaTodosPerfil == null) {
-//            TipoAlunoDAO dao = new TipoAlunoDAO();
-//            listaTodosPerfil = dao.getTodosTipoAlunos();
-//        }
-//        return listaTodosPerfil;
-//    }
-//
-//    public void setListaTodosPerfil(List<TipoAluno> listaTodosPerfil) {
-//        this.listaTodosPerfil = listaTodosPerfil;
-//    }
-//
-//    public List<TipoAluno> getListaPerfilAluno() {
-//        return listaPerfilAluno;
-//    }
-//
-//    public void setListaPerfilAluno(List<TipoAluno> listaPerfilAluno) {
-//        this.listaPerfilAluno = listaPerfilAluno;
-//    }
+    public Curso getCurso() {
+        return curso;
+    }
 
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public List<Curso> getListaCursos() {
+        if (listaCursos == null) {
+            CursoDAO dao = new CursoDAO();
+            listaCursos = dao.getTodosCursos();
+        }
+        return listaCursos;
+    }
+
+    public void setListaCursos(List<Curso> listaCursos) {
+        this.listaCursos = listaCursos;
+    }
+
+    public List<Curso> getListaCursosAluno() {
+        return listaCursosAluno;
+    }
+
+    public void setListaCursosAluno(List<Curso> listaCursosAluno) {
+        this.listaCursosAluno = listaCursosAluno;
+    }
     public List<Aluno> getListaTodosAlunos() {
         if (listaTodosAlunos == null) {
             AlunoDAO dao = new AlunoDAO();
@@ -95,27 +94,26 @@ public class AlunoBean implements Serializable{
 
     private void prepararTela() {
         aluno = new Aluno();
-//        listaPerfilAluno = null;
-//        listaTodosPerfil = null;
+        listaCursosAluno = null;
+        listaCursos = null;
         listaTodosAlunos = null;
-//        tpAluno = new TipoAluno();
+        curso = new Curso();
         fc = FacesContext.getCurrentInstance();
     }
 
-    public void prepararTipoAluno() {
-//        tpAluno = new TipoAluno();
+    public void prepararCurso() {
+        curso = new Curso();
     }
 
-    public void salvarTipoAluno(ActionEvent evento) {
+    public void salvarCurso(ActionEvent evento) {
         try {
-//            TipoAlunoDAO dao = new TipoAlunoDAO();
-//            msg = dao.salvar(tpAluno);
-//            listaTodosPerfil = null;
-//            getListaTodosPerfil();
+            CursoDAO dao = new CursoDAO();
+            msg = dao.salvar(curso);
+            listaCursos = null;
+            getListaCursos();
         } catch (Exception ex) {
             msg = ex.getMessage();
-            fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Erro", msg);
+            fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", msg);
         }
     }
 
@@ -134,8 +132,7 @@ public class AlunoBean implements Serializable{
     public void alterarAluno(Aluno aluno) {
         this.aluno = aluno;
         AlunoDAO dao = new AlunoDAO();
-//        listaPerfilAluno
-//                = dao.listarTiposPerfisAluno(user.getId());
+        listaCursosAluno = dao.listarCursosAluno(aluno.getId());
         this.idTab = 1;
     }
 
@@ -149,62 +146,57 @@ public class AlunoBean implements Serializable{
     }
 
     public void salvarAluno() {
-       // AlunoDAO dao = new AlunoDAO();
-        // verificar atribuição da senha ao aluno
-//        if ((!senha1.isEmpty())
-//                && (senha1.equals(senha2))) {
-//            aluno.setSenha(senha1);
-//        }
-//
-//        try {
-//            if (listaPerfilAluno.isEmpty()) {
-//                msg = "Você deve selecionar ao menos um perfil.";
-//                fm = new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                        "Aviso!", msg);
-//            } else {
-//                // aqui vem a regra para salvar
-//                // id == null representa usuário "novo"
-//                if(aluno.getId()==null){
-//                    aluno.setPerfis(new ArrayList<>());
-//                } else {
-//                    aluno.setPerfis(dao.listarPerfisAluno(aluno.getId()));
-//                }
-//                // tratar remoção
-//                List<AlunoPerfil> auxRemocao = new ArrayList<>();
-//                // percorre para encontrar quem deve ser removido!
-//                for(AlunoPerfil perfil : aluno.getPerfis()){
-//                    if(!listaPerfilAluno.contains(perfil.getTipo())){
-//                        auxRemocao.add(perfil);
-//                    }
-//                }
-//                for(AlunoPerfil perfilRemover :auxRemocao){
-//                    aluno.getPerfis().remove(perfilRemover);
-//                    dao.excluirPerfil(perfilRemover);
-//                }
-//                
-//                List<TipoAluno> jaSalvo = 
-//                              dao.listarTiposPerfisAluno(aluno.getId());
-//                for(TipoAluno tp : listaPerfilAluno){
-//                    // percorrer o que está selecionado na tela
-//                    // comparar com o que está salvo no banco
-//                    if(!jaSalvo.contains(tp)){
-//                        AlunoPerfil perfil = new AlunoPerfil();
-//                        perfil.setAluno(aluno);
-//                        perfil.setTipo(tp);
-//                        aluno.getPerfis().add(perfil);
-//                    }
-//                }
-//                msg = dao.salvar(aluno);
-//                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-//                        "Sucesso", msg);
-//                limparTela();                
-//            }
-//        } catch (Exception ex){
-//            fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//                        "Erro!", ex.getMessage());
-//        } finally {
-//            FacesContext.getCurrentInstance().addMessage(null, fm);
-//        }
+        AlunoDAO dao = new AlunoDAO();
+
+        try {
+            if (listaCursosAluno.isEmpty()) {
+                msg = "Você deve selecionar ao menos um curso.";
+                fm = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Aviso!", msg);
+            } else {
+                // aqui vem a regra para salvar
+                // id == null representa usuário "novo"
+                if(aluno.getId()==null){
+                    aluno.setListaCursos(new ArrayList<>());
+                } else {
+                    aluno.setListaCursos(dao.listarPerfisAluno(aluno.getId()));
+                }
+                // tratar remoção
+                List<AlunoCurso> auxRemocao = new ArrayList<>();
+                // percorre para encontrar quem deve ser removido!
+                for(AlunoCurso curso : aluno.getListaCursos()){
+                    if(!listaCursosAluno.contains(curso.getCurso())){
+                        auxRemocao.add(curso);
+                    }
+                }
+                for(AlunoCurso cursoRemover :auxRemocao){
+                    aluno.getListaCursos().remove(cursoRemover);
+                    dao.excluirCurso(cursoRemover);
+                }
+                
+                List<Curso> jaSalvo = 
+                              dao.listarCursosAluno(aluno.getId());
+                for(Curso tp : listaCursosAluno){
+                    // percorrer o que está selecionado na tela
+                    // comparar com o que está salvo no banco
+                    if(!jaSalvo.contains(tp)){
+                        AlunoCurso curso = new AlunoCurso();
+                        curso.setAluno(aluno);
+                        curso.setCurso(tp);
+                        aluno.getListaCursos().add(curso);
+                    }
+                }
+                msg = dao.salvar(aluno);
+                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                        "Sucesso", msg);
+                limparTela();                
+            }
+        } catch (Exception ex){
+            fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Erro!", ex.getMessage());
+        } finally {
+            FacesContext.getCurrentInstance().addMessage(null, fm);
+        }
 
     }
 }

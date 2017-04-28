@@ -55,6 +55,7 @@ Contributor(s):
     <mapping class="br.edu.pazin.modelo.UsuarioPerfil"/>
     <mapping class="br.edu.pazin.modelo.Aluno"/>
     <mapping class="br.edu.pazin.modelo.Curso"/>
+    <mapping class="br.edu.pazin.modelo.AlunoCurso"/>
     
   </session-factory>
 </hibernate-configuration>
